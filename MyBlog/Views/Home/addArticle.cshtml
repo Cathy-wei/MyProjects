@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@model MyBlog.Models.Articles
+
+<div class="row main">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+   <div class="form-horizontal">
+        <h4>添加文章</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.type, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3 drop">
+                        @Html.EditorFor(model => model.type, "dropdown")
+                    </div>
+                
+                @*<select id="type" name="type" class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                    <option>计算机</option>
+                    <option>学习</option>
+                    <option>娱乐</option>
+                </select>*@
+            </div>
+        
+
+   
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.content, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.content, new { htmlAttributes = new { @class = "textarea" } })
+            @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="添加" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+</div>

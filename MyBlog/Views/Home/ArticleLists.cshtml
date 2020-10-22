@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "文章列表";
+}
+
+@model IEnumerable<MyBlog.Models.Articles>
+@{ 
+    List<MyBlog.Models.Labels> labels = ViewBag.labels;
+}
+
+@section css {
+    <link href="@Url.Content("~/Content/article.css")" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+        <h2>分类标签</h2>
+        <div>
+            @foreach (var i in labels)
+                {
+                    <a class="link" href="#"> @Html.DisplayFor(modelItem => i.name)</a>
+                }
+          
+        </div>
+
+        <hr />
+
+
+        @foreach (var item in Model)
+        {
+    <div class="listbox">
+        <div class="title">
+        <h3>
+            <a onclick="addView(@item.id)">@Html.DisplayFor(modelItem => item.title)</a>&nbsp;
+            
+        </h3>
+        <span>@Html.DisplayFor(modelItem => item.type)</span>
+        </div>
+            @*//href = "@Url.Action("Article","Home",new {id = item.id })"*@
+        @*@Html.ActionLink("Article", "Article", new { id = item.id })*@
+        <div class="content">
+            @Html.DisplayFor(modelItem => item.content)
+        </div>
+        @*col-lg-offset-9*@
+        <div class="tips">
+            <span>@Html.DisplayFor(modelItem => item.time, "myTime")</span>&nbsp;
+            <span><i class="glyphicon glyphicon-eye-open"></i>&nbsp;@Html.DisplayFor(modelItem => item.view)</span>&nbsp;
+            <span><i class="glyphicon glyphicon-heart-empty"></i>&nbsp;@Html.DisplayFor(modelItem => item.like)</span>
+        </div>
+
+    </div>
+        }
+    </div>
+</div>
+
+<script>
+    function addView(id) {
+        url = "/Home/addView",
+        parameter = { id: id },
+        $.post(url, parameter, function (data) { 
+             window.location = "/Home/Article/"+id;
+        })
+    }
+</script>

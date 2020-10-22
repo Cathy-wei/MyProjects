@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<script>
+    function del(id) {
+        if (confirm("确定要删除？")) {
+            url = "/Home/editMessages",
+                parameter = { id: id },
+                $.post(url, parameter, function (data) {
+                    alert("删除成功！"),
+                        window.location = "/Home/editMessages"
+                })
+        }
+    };
+    $("#myModal").modal("hide");
+    function getId(id) {
+        $("#id").val(id);
+       
+    }
+    function add() {
+
+        var id = $("#id").val();
+        var content = $('#content').val(); 
+        $.ajax({
+            type: 'post',
+            url: '/Home/addAnswer',//路径为添加方法
+            data: 'id=' + id + '&answer=' + content,//参数的个数和名字要和方法的名字保持一致
+            success: function (json)//返回的是Json类型的
+            {
+                            
+                if (json.result == "true") {
+                    alert("添加成功！");
+                    window.location = "/Home/editMessages";
+                } else {
+                    alert('抱歉，添加失败！');
+                }
+            }
+        });
+            
+    };
+
+</script>
+
+@model IEnumerable<MyBlog.Models.Message>
+<div class="main">
+
+    @*<h2 style="text-align:center"><a href="#" title="添加"><i class="glyphicon glyphicon-plus"></i></a></h2>*@
+
+    @foreach (var i in Model)
+    {
+        <div class="ll" style="width:100%;padding:20px;border-radius: 15px;">
+            <p>@Html.DisplayFor(modelItem => i.m_content)</p>
+            <p class="col-md-offset-10">
+                <span><a data-toggle="modal" data-target="#myModal" onclick="return getId(@i.m_id);">回复</a>
+                      @*<button class="btn btn-primary btn-lg" >回复</button>*@
+                </span>&nbsp;&nbsp;
+                <span><a title="删除" onclick="return del(@i.m_id);"><i class="glyphicon glyphicon-trash"></i></a></span>
+
+            </p>
+        </div>
+    }
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"> 
+                    <h4 class="modal-title" id="myModalLabel" style="color:#3b3b3b">回复内容</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id" name="id" value=""/>
+                    <textarea rows="5"  class="form-control"  id="content" name="content"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="return add();" >确定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    
+</div>

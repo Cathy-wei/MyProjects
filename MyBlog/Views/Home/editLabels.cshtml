@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+@model IEnumerable<MyBlog.Models.Labels>
+    <div class="main">
+
+        @foreach (var i in Model)
+        {
+        <p class="lab">
+            <span> @Html.DisplayFor(modelItem => i.name) </span>
+            <span><a href="@Url.Action("upgradeLabel","Home",new {id = i.lid })" title="修改"><i class="glyphicon glyphicon-edit"></i></a></span>
+            <span><a title="删除" onclick="del(@i.lid)"><i class="glyphicon glyphicon-trash"></i></a></span>
+        </p>
+            
+        }
+    </div>
+<script>
+    function del(id) {
+        if (confirm("确定要删除？")) {
+            url = "/Home/editLabels",
+            parameter = { id: id },
+            $.post(url, parameter, function (data) {
+                alert("删除成功！"),
+                window.location = "/Home/editLabels"
+            })
+         }
+    }
+</script>

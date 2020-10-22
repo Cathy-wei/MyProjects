@@ -1,0 +1,170 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @RenderSection("css", false)
+    @Styles.Render("~/Content/css")
+    
+</head>
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+
+        <!-- 侧滑边菜单 -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            @*<a href="index">
+                    <img src="~/Content/pictures/touxiang.png" class="myimg"/>
+                </a>*@
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    @Html.ActionLink("我的博客🍬", "Index", "Home")
+                </li>
+                <li>
+                    <a href="/Home/Index"><i class="fa fa-fw fa-home"></i> 主页 </a>
+                </li>
+                <li class="dropdown">
+                    <a href="/Home/Articles" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-folder"></i> 文章归档 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("计算机", "ArticleLists", "Home", new { type = "计算机" }, null)</li>
+                        <li>@Html.ActionLink("学习", "ArticleLists", "Home", new { type = "学习" }, null)</li>
+                        <li>@Html.ActionLink("娱乐", "ArticleLists", "Home", new { type = "娱乐" }, null)</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/Home/Websites"><i class="fa fa-fw fa-bank"></i> 网站导航 </a>
+                </li>
+                <li>
+                    <a href="/Home/Message"><i class="fa fa-fw fa-dropbox"></i> 留言</a>
+                </li>
+                <li>
+                    <a href="/Home/About"><i class="fa fa-fw fa-cog"></i> 关于</a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+            <div class="container">
+                @RenderBody()
+                <canvas width="1280" height="616" style="position: fixed;top: 0px; left: 0px; pointer-events: none; z-index: 999999;"></canvas>
+                <hr />
+                <footer style="text-align:center">
+                    <a data-toggle="modal" data-target="#login">管理员入口</a>
+                    <p>&copy; @DateTime.Now - 我的 ASP.NET 应用程序</p>
+
+                </footer>
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="width:400px; color:black;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel" style="color:#3b3b3b">请登录</h4>
+                            </div>
+                            <div class="modal-body">
+                                账号：<input type="text" id="id" name="id" class="form-control" /><br/>
+                                密码：<input type="password" id="pswd" name="pswd" class="form-control" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" onclick="return login();">登录</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <!-- 模态框（Modal） -->
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+
+    <!-- /#wrapper -->
+    @*<script src="js/jquery-1.8.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        function login() {
+            var id = $("#id").val();
+            var pswd = $("#pswd").val();
+            $.ajax({
+                type: 'post',
+                url: '/Home/Login',//路径为添加方法
+                data: 'id=' + id + '&pswd=' + pswd,//参数的个数和名字要和方法的名字保持一致
+                success: function (json)//返回的是Json类型的
+                { 
+                    if (json.result == "true") {
+                        alert("登录成功！");
+                        window.location = "/Home/AdminSystem";
+                    } else {
+                        alert('账号或密码错误，登录失败！');
+                    }
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+                isClosed = false;
+
+            trigger.click(function () {
+                hamburger_cross();
+            });
+
+            function hamburger_cross() {
+
+                if (isClosed == true) {
+                    overlay.hide();
+                    trigger.removeClass('is-open');
+                    trigger.addClass('is-closed');
+                    isClosed = false;
+                } else {
+                    overlay.show();
+                    trigger.removeClass('is-closed');
+                    trigger.addClass('is-open');
+                    isClosed = true;
+                }
+            }
+
+            $('[data-toggle="offcanvas"]').click(function () {
+                $('#wrapper').toggleClass('toggled');
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+
+        var OriginTitile = document.title;
+        var titleTime;
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                //$('[rel="shortcut icon"]').attr('href', "http://omuy6viz3.bkt.clouddn.com/2017/03/2350176515.ico");
+                document.title = '(๑•́ωก̀๑)走了鸭•' + OriginTitile;
+                clearTimeout(titleTime);
+            } else {
+                //$('[rel="shortcut icon"]').attr('href', "http://omuy6viz3.bkt.clouddn.com/2017/03/2350176515.ico");
+                document.title = 'ฅ( ̳• ε • ̳)ฅ回来喽•' + OriginTitile;
+                titleTime = setTimeout(function () {
+                    document.title = OriginTitile;
+                }, 1500);
+            }
+        });
+    </script>
+
+</body>
+</html>

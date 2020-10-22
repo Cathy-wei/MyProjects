@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Html.DisplayFor(a => a.title);
+}
+
+@model MyBlog.Models.Articles
+@section css {
+    <link href="@Url.Content("~/Content/article.css")" rel="stylesheet" />
+}
+<script type="text/javascript">
+    function addLike(id) {
+     //   var cl = document.getElementById("like").className;
+        //if (cl = "glyphicon glyphicon-heart-empty") {
+            $.ajax({
+                type: 'post',
+                url: '/Home/addLike',
+                data: 'id=' + id,//参数的个数和名字要和方法的名字保持一致
+                success: function (json)//返回的是Json类型的
+                {
+                    if (json.result == "true") {
+                        document.getElementById("like").className = "glyphicon glyphicon-heart";
+                        window.location = "/Home/Article/" + id;
+                    }
+                }
+            });
+       // }
+        //else {
+        //    alert("您已经赞过了哦");
+        //}
+        
+    }
+</script>
+<div class="whole">
+    <div class="head">
+        <h1>@Html.DisplayFor(a => a.title)</h1>
+        <div>
+            <span><i class="glyphicon glyphicon-eye-open"></i>&nbsp;@Html.DisplayFor(a => a.view)</span>
+            <span onclick="return addLike(@ViewBag.id);"><i class="glyphicon glyphicon-heart-empty" id="like"></i>&nbsp;@Html.DisplayFor(a => a.like)</span>
+        </div>
+
+    </div>
+
+    <div class="article">
+        <pre>@Html.DisplayFor(a => a.content)</pre>
+    </div>
+
+    <div class="col-md-offset-8">
+        发布时间：@Html.DisplayFor(a => a.time, "myTime")
+
+    </div>
+
+</div>

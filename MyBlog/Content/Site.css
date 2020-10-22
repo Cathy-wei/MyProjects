@@ -1,0 +1,256 @@
+﻿body {
+    background-image:url('pictures/bg.jpg');
+    /*background-color:antiquewhite;*/
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+::selection {
+    background: #f33a8f;
+    color: black;
+}
+
+/*.img {
+    border-radius: 50px;
+    width: 60px;
+    float: left;
+    position: fixed;
+}
+
+    .img:hover {
+        cursor: pointer;
+        animation: myimg 0.5s ease;
+    }
+
+@keyframes myimg {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}*/
+
+.totop {
+    /* 回到顶部 */
+    width: 0px;
+    height: 0px;
+    border-left: transparent solid 20px;
+    border-right: transparent solid 20px;
+    border-bottom: white solid 40px;
+    opacity: 0.5;
+    position: fixed; /*固定位置*/
+    z-index: 99; /*设置优先级显示，保证不会被覆盖*/
+    right: 30px;
+    bottom: 30px;
+}
+
+    .totop:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .totop::before {
+        content: "TOP";
+        font-size: 10px;
+        font-weight: bold;
+        top: 20px;
+        right: -10px;
+        position: absolute;
+    }
+
+/*h2 {
+    color: #000000;
+    text-align: center;
+    height: 30px;
+    position: relative;
+    overflow: hidden;
+    border: transparent solid 2px;
+}*/
+
+
+header {
+    margin-left: 50px;
+}
+
+.note {
+    width: 90%;
+    padding: 20px;
+    margin: 0px auto;
+    color: #aaaaaa;
+}
+
+.activations {
+    float: right;
+    margin-right: 60px;
+    position: relative;
+    user-select: none; /* 取消双击选中文字 */
+}
+/* 		.talk,.view,.like{color: #AAAAAA;}
+			.talk,.view,.like:hover{cursor: pointer;color: #F33A8F;} */
+.talk {
+    color: #aaaaaa;
+}
+
+    .talk:hover {
+        cursor: pointer;
+        color: #f33a8f;
+    }
+
+.view {
+    color: #aaaaaa;
+}
+
+    .view:hover {
+        cursor: pointer;
+        color: #f33a8f;
+    }
+
+.like {
+    color: #aaaaaa;
+}
+
+    .like:hover {
+        cursor: pointer;
+        color: #f33a8f;
+    }
+
+
+
+#field {
+    border: none;
+}
+
+input, #info, #says {
+    background-color: transparent;
+    border: #000000 solid 1px;
+    height: 20px;
+    font-size: 15px;
+}
+
+    #info, #says, input:focus {
+        outline: none;
+        border: white solid 2px;
+    }
+
+#info, #says {
+    width: 590px;
+    height: 200px;
+    resize: vertical; /* 控制文本只能更改高度 */
+}
+
+
+
+.contact {
+    z-index: 4;
+    /* top: 100px; */
+    color: #000000;
+    position: relative;
+    /*display: none;*/
+    /* background-color: transparent; */
+    background-color: #F33A8F;
+    width: 50%;
+    margin: 80px 50px;
+    float: right;
+    font-weight: bold;
+    box-shadow: 0px 0px 60px black;
+    border-radius: 20px;
+}
+
+    .contact:hover {
+        /* 	background-color: #FFFFFF;
+	transition: background-color 1s; */
+        box-shadow: 0px 0px 80px black;
+    }
+
+
+
+.toback { /* 返回上一页 */
+    width: 0px;
+    height: 0px;
+    border-bottom: transparent solid 20px;
+    border-top: transparent solid 20px;
+    border-right: white solid 30px;
+    opacity: 0.5;
+    position: fixed; /*固定位置*/
+    z-index: 99; /*设置优先级显示，保证不会被覆盖*/
+    left: 40px;
+    top: 40px;
+}
+
+    .toback:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .toback::before {
+        content: 'BACK';
+        font-size: 15px;
+        font-weight: bold;
+        top: -10px;
+        left: 40px;
+        position: absolute;
+    }
+
+.say {
+    border: #000000 solid 2px;
+    border-radius: 30px;
+    margin: 6px;
+}
+
+.who {
+    font-weight: bold;
+}
+
+.heads {
+    height: 80px;
+    width: 80px;
+    border-radius: 80px;
+    box-shadow: #000000 0px 0px 10px;
+    vertical-align: middle;
+}
+
+    .heads:hover {
+        cursor: pointer;
+        animation: myimg 0.5s ease;
+    }
+
+.one {
+    left: 20px;
+    margin: -20px 0px 0px 90px;
+    width: 700px;
+    background: #fa9aa8;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.artical {
+    display: none;
+}
+
+#articl1 {
+    width: 73%;
+    top: 0px;
+    margin: 30px auto;
+    background: transparent;
+    box-shadow: #000000 0px 0px 20px;
+    padding: 24px;
+}
+
+    #articl1:hover {
+        background: #FFB6C1;
+        transition: background 1s;
+    }
+
+pre {
+    font-size: 16px;
+    white-space: pre-wrap;/*保留空白字符并自动换行*/
+    /*text-indent: 2em;*/
+    background-color: transparent;
+    border: none;
+    color: white;
+}

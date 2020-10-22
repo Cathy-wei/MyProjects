@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+@model IEnumerable<MyBlog.Models.Links>
+<div class="main">
+
+    @foreach (var i in Model)
+    {
+        <div class="ll">
+            <span><a onclick="jump('@i.address')">@Html.DisplayFor(modelItem => i.name)</a> </span>
+            <span><a href="@Url.Action("upgradeLink","Home",new {id = i.id })" title="修改"><i class="glyphicon glyphicon-edit"></i></a></span>
+            <span><a title="删除" onclick="del(@i.id)"><i class="glyphicon glyphicon-trash"></i></a></span>
+        </div>
+    }
+</div>
+<script>
+    function del(id) {
+        if (confirm("确定要删除？")) {
+            url = "/Home/editLinks",
+            parameter = { id: id },
+            $.post(url, parameter, function (data) {
+                alert("删除成功！"),
+                window.location = "/Home/editLinks"
+            })
+         }
+    };
+
+    function jump(address) {
+        window.open("http://"+address)
+    }
+</script>
